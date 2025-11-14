@@ -1,0 +1,115 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href=" {% url 'landingpage' %} ">Home</a>
+        <a class="nav-link" href="{% url 'register' %}">Register</a>
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
+        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple HTML Form</title>
+</head>
+<body>
+
+   {{x}}
+   {{pmsg}}
+  <h2>Registration Form</h2>
+
+  <form action="{% url 'registerdata' %}" method="POST" enctype="multipart/form-data">
+     {% csrf_token %}
+    <!-- Name -->
+    <label for="name">Full Name:</label><br>
+    <input type="text" id="name" name="name" required><br><br>
+
+    <!-- Email -->
+    <label for="email">Email:</label><br>
+    <input type="email" id="email" name="email" required><br><br>
+
+    <!-- Contact -->
+    <label for="contact">Contact Number:</label><br>
+    <input type="tel" id="contact" name="contact"><br><br>
+
+    <!-- Details -->
+    <label for="details">Details / About You:</label><br>
+    <textarea id="details" name="detail" rows="4" cols="40"></textarea><br><br>
+
+    <!-- Gender -->
+    <label>Gender:</label><br>
+    <input type="radio" id="male" name="gender" value="male">
+    <label for="male">Male</label><br>
+    <input type="radio" id="female" name="gender" value="female">
+    <label for="female">Female</label><br>
+    <input type="radio" id="other" name="gender" value="other">
+    <label for="other">Other</label><br><br>
+
+    <!-- Qualification -->
+    <label>Qualification:</label><br>
+    <input type="checkbox" id="10th" name="qualification" value="10th">
+    <label for="10th">10th</label><br>
+    <input type="checkbox" id="12th" name="qualificationh" value="12th">
+    <label for="12th">12th</label><br>
+    <input type="checkbox" id="ug" name="qualification" value="ug">
+    <label for="ug">Undergraduate</label><br>
+    <input type="checkbox" id="pg" name="qualification" value="pg">
+    <label for="pg">Postgraduate</label><br><br>
+
+    <!-- Higher Education -->
+    <label for="education">Higher Education:</label><br>
+    <select id="education" name="higher">
+      <option value="">--Select--</option>
+      <option value="bsc">B.Sc</option>
+      <option value="ba">B.A</option>
+      <option value="btech">B.Tech</option>
+      <option value="msc">M.Sc</option>
+      <option value="ma">M.A</option>
+      <option value="mtech">M.Tech</option>
+      <option value="mba">MBA</option>
+      <option value="phd">PhD</option>
+    </select><br><br>
+
+    <!-- File Uploads -->
+    <label for="profile_pic">Upload Profile Picture:</label><br>
+    <input type="file" id="profile_pic" name="photo" accept="image/*"><br><br>
+
+    <label for="document">Upload Document:</label><br>
+    <input type="file" id="document" name="document" accept=".pdf,.doc,.docx"><br><br>
+
+    <label for="audio">Upload Audio:</label><br>
+    <input type="file" id="audio" name="audio" accept="audio/*"><br><br>
+
+    <label for="video">Upload Video:</label><br>
+    <input type="file" id="video" name="video" accept="video/*"><br><br>
+
+    <label for="password">Password</label> <br>
+     <input type="password" name="password"> <br> <br>
+
+     <label for="password">cpassword</label> <br>
+     <input type="password" name="cpassword"> <br> <br>
+
+    <!-- Buttons -->
+    <button type="submit">Submit</button>
+    <button type="reset">Reset</button>
+
+  </form>
+
+</body>
+</html>
+
+

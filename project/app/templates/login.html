@@ -1,0 +1,36 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link active" aria-current="page" href=" {% url 'landingpage' %} ">Home</a>
+        <a class="nav-link" href="{% url 'register' %}">Register</a>
+        <a class="nav-link" href="{% url 'login' %}">Login</a>
+        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+{{y}}
+<h1>Login Page</h1>
+
+<form action="{% url 'logindata' %}"  method="post">
+    {% csrf_token %}
+
+    <label for="">Email</label>
+    <input type="email" name="lemail" placeholder="Enter Your Email"> <br> <br>
+
+    <label for="">Password</label>
+    <input type="text" name="lpassword" id="" placeholder="Enter Your Password"> <br> <br>
+
+    <button type="submit">Login</button>
+    <p>If not register sign in</p> <a href="">Sign-Up</a>
+
+</form>
