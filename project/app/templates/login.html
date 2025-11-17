@@ -23,14 +23,17 @@
 
 <form action="{% url 'logindata' %}"  method="post">
     {% csrf_token %}
+    {{msg}} <br> <br>
 
     <label for="">Email</label>
-    <input type="email" name="lemail" placeholder="Enter Your Email"> <br> <br>
+    <input type="email" name="lemail" value="{{email}}" placeholder="Enter Your Email"> <br> <br>
 
     <label for="">Password</label>
     <input type="text" name="lpassword" id="" placeholder="Enter Your Password"> <br> <br>
 
     <button type="submit">Login</button>
-    <p>If not register sign in</p> <a href="">Sign-Up</a>
+    <p>If not register sign in</p>
+    <button type="submit">Sign in</button>
+     
 
 </form>

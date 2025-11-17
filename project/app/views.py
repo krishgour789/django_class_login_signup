@@ -32,7 +32,16 @@ def logindata(request):
             photo = userdata.photo
             contact = userdata.contact
             qualification = userdata.qualification
-            print(name,email,password,gender,higher,details,photo,contact,qualification)
+            # print(name,email,password,gender,higher,details,photo,contact,qualification)
+            if (lp==password):
+                data = {'name':name}
+                return render(request,'database.html',data)
+            else:
+                msg = 'Email & Password not Matched'
+                return render(request,'login.html',{'msg':msg,'email':le})
+        else:
+            msg = "Email is not register"
+            return render(request,'register.html',{'msg':msg})
 
 def registerdata(request):
     if request.method=='POST':
