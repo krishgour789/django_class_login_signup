@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
 from django.template import loader
-
+from django.urls import reverse
+from urllib.parse import urlencode
 from app.models import Student
 
 
@@ -34,15 +35,32 @@ def logindata(request):
             qualification = userdata.qualification
             # print(name,email,password,gender,higher,details,photo,contact,qualification)
             if (lp==password):
-                data = {'name':name}
-                return render(request,'database.html',data)
+                # data = {'name':name}
+                # return render(request,'database.html',data)   // in our url it show logindata
+                base_url = reverse('dashboard')
+                data = urlencode({'name':name,'email':email,'contact':contact,'gender':gender,'higher':higher,'password':password})
+                url = f'{base_url}?{data}'
+                return redirect(url)
+
             else:
                 msg = 'Email & Password not Matched'
                 return render(request,'login.html',{'msg':msg,'email':le})
         else:
             msg = "Email is not register"
-            return render(request,'register.html',{'msg':msg})
-
+def dashboard(req):
+    e = req.GET.get('email')
+    p = req.GET.get('password')
+    if e and p :
+        n = req.GET.get('name')
+        c = req.GET.get('contact')
+        g = req.GET.get('gender')
+        h = req.GET.get('higher')
+        data = {'name':n,'contact':c,'gender':g,'higher':h,'email':e,'password':p}
+        return render (req,'dashboard.html',data)
+    else:
+        # return render(req,'login.html')
+        url = reverse('login')
+        return redirect(url)
 def registerdata(request):
     if request.method=='POST':
         n = request.POST.get('name')
@@ -56,6 +74,8 @@ def registerdata(request):
         do = request.FILES.get('document')
         a = request.FILES.get('audio')
         v = request.FILES.get('video')
+       
+    
 
         pa = request.POST.get('password')
         cpass = request.POST.get('cpassword')
