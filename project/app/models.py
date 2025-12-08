@@ -37,3 +37,10 @@ class Student(models.Model):
     audio = models.FileField(upload_to='audio/', blank=True, null=True)
     video = models.FileField(upload_to='video/', blank=True, null=True)
     password = models.CharField(max_length=50,null=True)
+class Query(models.Model):
+    Name = models.CharField(max_length=50)
+    Name = models.EmailField()
+    Query = models.TextField()
+
+    def __str__(self):
+        return self.Query

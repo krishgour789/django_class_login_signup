@@ -1,6 +1,30 @@
-{{name}} <br> 
-{{contact}} <br>
-{{email}} <br>
-{{password}} <br>
-{{higher}} <br>
-{{gender}} <br>
+
+{{name}}
+<form action="{% url 'query' pk=data.id %}">
+    <button type="submit" class="btn btn-primary">Run Query</button>
+
+</form>
+<button>
+    <a href="{% url 'show_query' pk=data.id %}">Show_all_query</a>
+</button>
+
+
+
+{% if query %}
+<form action="{% url 'query_data' pk=data.id %}">
+{% csrf_token %}
+
+    <label for="">Name</label>
+    <input type="text" name="name" value="{{data.name}}">
+    <label for="">Email</label>
+    <input type="text" name="email" value="{{data.email}}">
+
+    <label for="">query</label>
+    <input type="text" name="=query">
+
+    <br>
+
+    <input type="submit">
+    
+</form>
+{% endif %}

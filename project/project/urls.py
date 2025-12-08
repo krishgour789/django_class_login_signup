@@ -20,12 +20,16 @@ from app import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',views.landingpage,name='landingpage'),
-    path('register',views.register,name='register'),
+    path('landingpage',views.landingpage,name='landingpage'),
+    path('',views.register,name='register'),
     path('registerdata',views.registerdata,name='registerdata'),
     path('login',views.login,name='login'),
     path('logindata',views.logindata,name='logindata'),
-    path('dashboard',views.dashboard,name='dashboard')
+    path('dashboard',views.dashboard,name='dashboard'),
+    path('dynamic_url/<str:name>/<int:age>/<slug:qual>',views.dynamic_url),
+    path('dashboard/query/<int:pk>/', views.query, name='query'),
+    path('query_data/<int:pk>/', views.query_data, name='query_data'),
+    path('dashboard/show_query/<int:pk>/', views.show_query, name='show_query'),
     
    
 ]
