@@ -129,13 +129,15 @@ def query(request,pk):
 
 from app.models import Query
 def query_data(req,pk):
+   
     if req.method =='POST':
-        nam = req.POST.get('name')
+        n = req.POST.get('name')
         e = req.POST.get('email')
         q = req.POST.get('query')
 
-    Query.objects.create(Name=nam,Email=e,Query=q)
+    Query.objects.create(Name=n,Email=e,Query=q)
     userdata=Student.objects.get(id=pk)
+    
     data = {
             'id':userdata.id,
             'name':userdata.name,
@@ -171,21 +173,94 @@ def show_query(req,pk):
     all_query = Query.objects.filter(Email=userdata.email)
     return render(req,'dashboard.html',{'data':data,'aq':all_query})
 
-    
+def delete(req,pk):      # It helps to delete the Query .
+    query = Query.objects.get(id=pk) 
+    e = query.Email
+    query.delete()
+    userdata=Student.objects.get(email=e)
+    data = {
+            'id':userdata.id,
+            'name':userdata.name,
+            'email':userdata.email,
+            'contact':userdata.contact,
+            'details':userdata.detail,
+            'gender':userdata.gender,
+            'qualification':userdata.qualification,
+            'higher':userdata.higher,
+            'photo':userdata.photo,
+            'document':userdata.document,
+            'audio':userdata.audio,
+            'video':userdata.video
+        }
+    all_query = Query.objects.filter(Email=userdata.email)
+    return render(req,'dashboard.html',{'data':data,'aq':all_query})
 
-    # userdata = Student.objects.get(id=pk)
-    # data = {'id':userdata.id,
-    #         'name':userdata.n,
-    #         'email':userdata.e,
-    #         'contact':userdata.c,
-    #         'detail':userdata.d,
-    #         'gender':userdata.g,
-    #         'qualification':userdata.q,
-    #         'higher' : userdata.h,
-    #         'photo':userdata.p,
-    #         'document':userdata.do,
-    #         'audio' :userdata.a,
-    #         'video':userdata.v}
-    # return render(request,'dashboard.html',{'data':data})
+
+
+
+
+
+
+
+def edit(req,pk):
+    query_data = Query.objects.get(id=pk)
+    id = query_data.id
+    name=query_data.Name
+    email = query_data.Email
+    query = query_data.Query
+
+    eq = {'id':id,
+          'name':name,
+          'email':email,
+          'query':query}
+    userdata=Student.objects.get(email=email)
+    data = {
+            'id':userdata.id,
+            'name':userdata.name,
+            'email':userdata.email,
+            'contact':userdata.contact,
+            'details':userdata.detail,
+            'gender':userdata.gender,
+            'qualification':userdata.qualification,
+            'higher':userdata.higher,
+            'photo':userdata.photo,
+            'document':userdata.document,
+            'audio':userdata.audio,
+            'video':userdata.video
+        }
+
+    return render(req,'dashboard.html',{'data':data,'eq':eq})
+
+def updatedata(req,pk):
+    if req.method=='POST':
+        new_query=req.POST.get('query')
+        email=req.POST.get('email')
+        old_querydata=Query.objects.get(id=pk)
+        
+      
+        old_querydata.Query=new_query
+        old_querydata.save()
+        userdata=Student.objects.get(email=email)
+        data = {
+            'id':userdata.id,
+            'name':userdata.name,
+            'email':userdata.email,
+            'contact':userdata.contact,
+            'details':userdata.detail,
+            'gender':userdata.gender,
+            'qualification':userdata.qualification,
+            'higher':userdata.higher,
+            'photo':userdata.photo,
+            'document':userdata.document,
+            'audio':userdata.audio,
+            'video':userdata.video
+        }
+    all_query = Query.objects.filter(Email=userdata.email)
+    return render(req,'dashboard.html',{'data':data,'aq':all_query})
+
+
+
+    
+  
             
    

@@ -30,6 +30,10 @@ urlpatterns = [
     path('dashboard/query/<int:pk>/', views.query, name='query'),
     path('query_data/<int:pk>/', views.query_data, name='query_data'),
     path('dashboard/show_query/<int:pk>/', views.show_query, name='show_query'),
+    path('dashboard/query/delete/<int:pk>/', views.delete, name='delete'),
+    path('dashboard/query/edit/<int:pk>/', views.edit, name='edit'),
+    path('dashboard/query/updatedata/<int:pk>/', views.updatedata, name='updatedata'),
+
     
    
 ]

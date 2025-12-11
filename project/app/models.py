@@ -38,9 +38,9 @@ class Student(models.Model):
     video = models.FileField(upload_to='video/', blank=True, null=True)
     password = models.CharField(max_length=50,null=True)
 class Query(models.Model):
-    Name = models.CharField(max_length=50)
-    Name = models.EmailField()
-    Query = models.TextField()
+    Name = models.CharField(max_length=50,null=True)
+    Email = models.EmailField(null=True)
+    Query = models.TextField(null=True)
 
     def __str__(self):
         return self.Query

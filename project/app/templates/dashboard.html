@@ -7,11 +7,35 @@
 <button>
     <a href="{% url 'show_query' pk=data.id %}">Show_all_query</a>
 </button>
+{% if aq %}
+<table border="1">
+    <thead>
+        <tr>
+            <td>s.no</td>
+            <td>Name</td>
+            <td>Email</td>
+            <td>Query</td>
+            <td>Edit</td>
+            <td>Delete</td>
+        </tr>
+    </thead>
+{% for i in aq %}
+<tr>
+    <td>{{forloop.counter}}</td>
+    <td>{{i.Name}}</td>
+    <td>{{i.Email}}</td>
+    <td>{{i.Query}}</td>
+    <td><button><a href="{% url 'edit' pk=i.id %}">Edit</a></button></td>
+    <td><button><a href="{% url 'delete' pk=i.id %}">Delete</a></button></td>
+</tr>
+{% endfor %}    
+</table>
+{% endif %}
 
 
 
 {% if query %}
-<form action="{% url 'query_data' pk=data.id %}">
+<form action="{% url 'query_data' pk=data.id %}" method="post">
 {% csrf_token %}
 
     <label for="">Name</label>
@@ -20,11 +44,31 @@
     <input type="text" name="email" value="{{data.email}}">
 
     <label for="">query</label>
-    <input type="text" name="=query">
+    <input type="text" name="query" >
 
     <br>
 
     <input type="submit">
+    
+</form>
+{% endif %}
+
+{% if eq %}
+{{eq.id}}
+<form action="{% url 'updatedata' pk=eq.id %}" method="post">
+ {% csrf_token %}   
+
+    <label for="">Name</label>
+    <input type="text" name="name" value="{{eq.name}}" readonly>
+    <label for="">Email</label>
+    <input type="text" name="email" value="{{eq.email}}" readonly>
+
+    <label for="">query</label>
+    <input type="text" name="query" value="{{eq.query}}">
+
+    <br>
+
+    <input type="submit" value="Update" >
     
 </form>
 {% endif %}
