@@ -4,7 +4,8 @@ from django.template import loader
 from django.urls import reverse
 from urllib.parse import urlencode
 from app.models import Student
-
+from django.core.mail import send_mail
+import random
 
 # Create your views here.
 def landingpage(request):
@@ -168,7 +169,8 @@ def show_query(req,pk):
             'photo':userdata.photo,
             'document':userdata.document,
             'audio':userdata.audio,
-            'video':userdata.video
+            'video':userdata.video,
+            'password':userdata.password
         }
     all_query = Query.objects.filter(Email=userdata.email)
     return render(req,'dashboard.html',{'data':data,'aq':all_query})
@@ -190,7 +192,8 @@ def delete(req,pk):      # It helps to delete the Query .
             'photo':userdata.photo,
             'document':userdata.document,
             'audio':userdata.audio,
-            'video':userdata.video
+            'video':userdata.video,
+            'password':userdata.password
         }
     all_query = Query.objects.filter(Email=userdata.email)
     return render(req,'dashboard.html',{'data':data,'aq':all_query})
@@ -226,7 +229,8 @@ def edit(req,pk):
             'photo':userdata.photo,
             'document':userdata.document,
             'audio':userdata.audio,
-            'video':userdata.video
+            'video':userdata.video,
+            'password':userdata.password
         }
 
     return render(req,'dashboard.html',{'data':data,'eq':eq})
@@ -253,14 +257,75 @@ def updatedata(req,pk):
             'photo':userdata.photo,
             'document':userdata.document,
             'audio':userdata.audio,
-            'video':userdata.video
+            'video':userdata.video,
+            'password':userdata.password
         }
     all_query = Query.objects.filter(Email=userdata.email)
     return render(req,'dashboard.html',{'data':data,'aq':all_query})
 
+def forgetpassword(req):
+    return render(req,'forget.html')
 
+def forgetdata(req):
+    if req.method=='POST':
+        e = req.POST.get('email')
+       
+        userdata=Student.objects.filter(email=e)  
+        if userdata:
+            otp = random.randint(1111,9999)
+            req.session['email'] = e
+            req.session['otp'] = otp
 
+            # response = render(req, 'forget.html', {'msg': 'OTP SENT SUCCESSFULLY'})
+
+            
+            
+            send_mail(
+                    "OTP For Password Reset",
+                    f"This is Your 4-Digit OTP : {otp}",
+                    f"Cybrom@gmail.com",
+                    [e],
+                    fail_silently=False,
+                )
+              
+            return render(req,'resetpassword.html')
+            
+            
+        else:
+            return render(req,'forget.html',{'msg':'Email is not Registered'})
     
+def resetpassword(req):
+    return render(req,'resetpassword.html',)
+
+def resetdata(req):
+     if req.method=='POST':
+        p = req.POST.get('newpassword')
+        cp = req.POST.get('confirmpassword')
+        newotp = int(req.POST.get('otp'))
+
+        
+        old_otp = int(req.session.get('otp'))
+        email = req.session.get('email')
+        # print(type(old_otp))
+        # print(type(newotp))
+        if old_otp==newotp:
+            userdata=Student.objects.get(email=email)
+            if p==cp:
+                userdata.password = p
+                userdata.save()
+                return render(req,'login.html',{'msg':'Password Changed SUccessfully'})
+            else:
+                return render(req,'resetpassword.html',{'msg':'Password Not Matched'})
+        else:
+            return render(req,'resetpassword.html',{'msg':'OTP Not Matched'})
+
+            
+
+
+     
+
+
+        
   
             
    

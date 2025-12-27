@@ -1,0 +1,10 @@
+<h1>Welcome to Forget Password</h1>
+<h3>Please Update Your Password</h3> 
+{{msg}}
+<hr>
+
+<form action="{% url 'forgetdata' %}" method="post">
+    {% csrf_token %}   
+    Enter Your Registered Email : <input type="email" name='email'> <br> <br>
+    <input type="submit" value="Get OTP">
+</form>

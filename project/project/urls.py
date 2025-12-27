@@ -33,6 +33,10 @@ urlpatterns = [
     path('dashboard/query/delete/<int:pk>/', views.delete, name='delete'),
     path('dashboard/query/edit/<int:pk>/', views.edit, name='edit'),
     path('dashboard/query/updatedata/<int:pk>/', views.updatedata, name='updatedata'),
+    path('forgetpassword', views.forgetpassword, name='forgetpassword'),
+    path('forgetdata', views.forgetdata, name='forgetdata'),
+    path('resetpassword', views.resetpassword, name='resetpassword'),
+    path('resetdata', views.resetdata, name='resetdata'),
 
     
    
